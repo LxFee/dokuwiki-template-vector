@@ -197,13 +197,18 @@ if (empty($conf["useacl"]) || //are there any users?
             if (actionOK("index")){ //check if action is disabled
                 $_vector_boxes["p-tb"]["xhtml"] .= "        <li id=\"t-special\"><a href=\"".wl("", array("do" => "index"))."\" rel=\"nofollow\">".hsc($lang["vector_toolbxdef_siteindex"])."</a></li>\n";
             }
+            $_vector_boxes["p-tb"]["xhtml"] .=  "        <li id=\"t-permanent\"><a href=\"".wl(cleanID(getId()), array("rev" =>(int)$rev))."\" rel=\"nofollow\">".hsc($lang["vector_toolboxdef_permanent"])."</a></li>\n"
+                                               ."        <li id=\"t-cite\"><a href=\"".wl(cleanID(getId()), array("rev" =>(int)$rev, "vecdo" => "cite"))."\" rel=\"nofollow\">".hsc($lang["vector_toolboxdef_cite"])."</a></li>\n";
             // 页面重命名
             if (actionOK("recent")){ //check if action is disabled
                 $_vector_boxes["p-tb"]["xhtml"] .= "        <li id=\"t-special\" class=\" plugin_move_page \"><a href=\"".wl("", array("do" => "plugin_move"))."\" class=\" plugin_move_page \" rel=\"nofollow\">"."页面重命名"."</a></li>\n";
             }
-            $_vector_boxes["p-tb"]["xhtml"] .=  "        <li id=\"t-permanent\"><a href=\"".wl(cleanID(getId()), array("rev" =>(int)$rev))."\" rel=\"nofollow\">".hsc($lang["vector_toolboxdef_permanent"])."</a></li>\n"
-                                               ."        <li id=\"t-cite\"><a href=\"".wl(cleanID(getId()), array("rev" =>(int)$rev, "vecdo" => "cite"))."\" rel=\"nofollow\">".hsc($lang["vector_toolboxdef_cite"])."</a></li>\n"
-                                               ."      </ul>";
+            // 创建新页面
+            if (actionOK("recent")){ //check if action is disabled
+                $_vector_boxes["p-tb"]["xhtml"] .= "        <li id=\"t-special\" class=\" plugin_add_page \"><a href=\"".wl("", array("do" => "plugin_add"))."\" class=\" plugin_add_page \" rel=\"nofollow\">"."创建新页面"."</a></li>\n";
+            }
+            
+            $_vector_boxes["p-tb"]["xhtml"] .= "        </ul>";
         }else{
             //we have to use a custom toolbox
             if (empty($conf["useacl"]) ||
